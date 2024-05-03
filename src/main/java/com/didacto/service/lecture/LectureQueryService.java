@@ -24,6 +24,10 @@ public class LectureQueryService {
                 .orElseThrow(() -> new NoSuchElementFoundException404(ErrorDefineCode.LECTURE_NOT_FOUND));
     }
 
+    public List<Lecture> queryOne(LectureQueryFilter request) {
+        return lectureRepository.findLectures(request);
+    }
+
     public LecturePageResponse queryPage(Pageable pageable, LectureQueryFilter request) {
         long page = pageable.getOffset();
         long size = pageable.getPageSize();

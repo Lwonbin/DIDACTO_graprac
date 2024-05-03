@@ -31,6 +31,12 @@ public class EnrollmentCustomRepositoryImpl implements EnrollmentCustomRepositor
     }
 
     @Override
+    public List<Enrollment> findEnrollments(EnrollmentQueryFilter request) {
+        JPAQuery<Enrollment> query = queryWithFilter(request);
+        return query.fetch();
+    }
+
+    @Override
     public List<Enrollment> findEnrollmentPage(Pageable pageable, EnrollmentQueryFilter request) {
         JPAQuery<Enrollment> query = queryWithFilter(request);
 

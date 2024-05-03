@@ -9,6 +9,7 @@ import java.util.Optional;
 
 public interface EnrollmentCustomRepository {
     Optional<Enrollment> findEnrollment(EnrollmentQueryFilter request);
+    List<Enrollment> findEnrollments(EnrollmentQueryFilter request);
     List<Enrollment> findEnrollmentPage(Pageable pageable, EnrollmentQueryFilter request);
     Long countEnrollments(EnrollmentQueryFilter request);
 }

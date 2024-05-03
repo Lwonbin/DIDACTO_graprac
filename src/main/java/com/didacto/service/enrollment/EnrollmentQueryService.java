@@ -32,6 +32,10 @@ public class EnrollmentQueryService {
                 .orElseThrow(() -> new NoSuchElementFoundException404(ErrorDefineCode.LECTURE_NOT_FOUND));
     }
 
+    public List<Enrollment> query(EnrollmentQueryFilter request){
+        return enrollmentRepository.findEnrollments(request);
+    }
+
     public EnrollmentPageResponse queryPage(Pageable pageable, EnrollmentQueryFilter request) {
         long page = pageable.getOffset();
         long size = pageable.getPageSize();
