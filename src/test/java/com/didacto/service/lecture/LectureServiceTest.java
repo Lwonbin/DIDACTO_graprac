@@ -6,6 +6,8 @@ import com.didacto.domain.LectureState;
 import com.didacto.domain.Member;
 import com.didacto.dto.lecture.LectureCreationRequest;
 import com.didacto.dto.lecture.LectureModificationRequest;
+import com.didacto.dto.lecture.LecturePageResponse;
+import com.didacto.dto.lecture.LectureQueryFilter;
 import jakarta.persistence.EntityManager;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -13,6 +15,8 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.OffsetDateTime;
@@ -101,29 +105,33 @@ public class LectureServiceTest {
     @Test
     @DisplayName("Lecture : 키워드로 강의 리스트 조회")
     public void 강의_키워드로_리스트_조회() {
-//        // given, when
-//        LectureListResponse lectures = lectureQueryService.queryEnrollmentListByKeyword(
-//                new LecturePagingRequest(1L, 10L), "date", "TestCode"
-//        );
-//
-//        // then
-//        assertThat(lectures.getLectures().size()).isEqualTo(2); //키워드 검색 검증
-//        assertThat(lectures.getPageInfo().getHaveNext()).isEqualTo(false); //페이지네이션 검증
-//        assertThat(lectures.getPageInfo().getTotalPages()).isEqualTo(1);
+        // given, when
+        LecturePageResponse lectures = lectureQueryService.queryPage(
+                PageRequest.of(1, 10),
+                LectureQueryFilter.builder()
+                        .titleKeyword("TestCode")
+                        .build()
+        );
+
+        // then
+        assertThat(lectures.getLectures().size()).isEqualTo(2); //키워드 검색 검증
+        assertThat(lectures.getPageInfo().getHaveNext()).isEqualTo(false); //페이지네이션 검증
+        assertThat(lectures.getPageInfo().getTotalPages()).isEqualTo(1);
     }
 
     @Test
     @DisplayName("Lecture : 강의 전체 리스트 조회")
     public void 강의_전체_리스트_조회() {
-//        // given, when
-//        LectureListResponse lectures = lectureQueryService.queryEnrollmentListByKeyword(
-//                new LecturePagingRequest(2L, 2L), "date", null
-//        );
-//
-//        // then
-//        assertThat(lectures.getLectures())
-//                .extracting(e -> e.getId())
-//                .contains(lecturId);    //정렬 검증
+        // given, when
+        LecturePageResponse lectures = lectureQueryService.queryPage(
+                PageRequest.of(2, 2, Sort.by(Sort.Direction.DESC,"id")),
+                LectureQueryFilter.builder().build()
+        );
+
+        // then
+        assertThat(lectures.getLectures())
+                .extracting(e -> e.getId())
+                .contains(lecturId);    //정렬 검증
 
 
     }

@@ -1,6 +1,8 @@
 package com.didacto.service.enrollement;
 
 import com.didacto.domain.*;
+import com.didacto.dto.enrollment.EnrollmentBasicResponse;
+import com.didacto.dto.enrollment.EnrollmentListResponse;
 import com.didacto.dto.enrollment.EnrollmentQueryConditionRequest;
 import com.didacto.dto.enrollment.EnrollmentRequest;
 import com.didacto.service.enrollment.EnrollmentCommandService;
@@ -73,8 +75,8 @@ public class EnrollmentServiceTest {
         id = enrollmentCommandService.cancelEnrollment(id, studentId).getId();
 
         //then
-//        EnrollmentResponse enrollment =  enrollmentQueryService.getEnrollmentById(id);
-//        assertThat(enrollment.getStatus()).isEqualTo(EnrollmentStatus.CANCELLED);
+        EnrollmentBasicResponse enrollment =  enrollmentQueryService.getEnrollmentById(id);
+        assertThat(enrollment.getStatus()).isEqualTo(EnrollmentStatus.CANCELLED);
 
     }
 
@@ -90,8 +92,8 @@ public class EnrollmentServiceTest {
 
 
         //then
-//        EnrollmentResponse enrollment =  enrollmentQueryService.getEnrollmentById(id);
-//        assertThat(enrollment.getStatus()).isEqualTo(EnrollmentStatus.ACCEPTED);
+        EnrollmentBasicResponse enrollment =  enrollmentQueryService.getEnrollmentById(id);
+        assertThat(enrollment.getStatus()).isEqualTo(EnrollmentStatus.ACCEPTED);
     }
 
     @Test
@@ -105,8 +107,8 @@ public class EnrollmentServiceTest {
         id = enrollmentCommandService.confirmEnrollment(id, tutorId, EnrollmentStatus.REJECTED).getId();
 
         //then
-//        EnrollmentResponse enrollment =  enrollmentQueryService.getEnrollmentById(id);
-//        assertThat(enrollment.getStatus()).isEqualTo(EnrollmentStatus.REJECTED);
+        EnrollmentBasicResponse enrollment =  enrollmentQueryService.getEnrollmentById(id);
+        assertThat(enrollment.getStatus()).isEqualTo(EnrollmentStatus.REJECTED);
     }
 
     @Test
@@ -120,17 +122,17 @@ public class EnrollmentServiceTest {
         EnrollmentQueryConditionRequest getAll = new EnrollmentQueryConditionRequest(1L, 10L, true, true, true, true);
         EnrollmentQueryConditionRequest getAccept = new EnrollmentQueryConditionRequest(1L, 10L, false, false, true, false);
         EnrollmentQueryConditionRequest getReject = new EnrollmentQueryConditionRequest(1L, 10L, false, false, false, true);
-//        EnrollmentListResponse enrollments =  enrollmentQueryService.getEnrollmentInfoList(lectureId, null, getAll, "date");
-//        EnrollmentListResponse enrollments2 =  enrollmentQueryService.getEnrollmentInfoList(lectureId, null, getAccept, "date");
-//        EnrollmentListResponse enrollments3 =  enrollmentQueryService.getEnrollmentInfoList(lectureId, null, getReject, "date");
+        EnrollmentListResponse enrollments =  enrollmentQueryService.getEnrollmentInfoList(lectureId, null, getAll, "date");
+        EnrollmentListResponse enrollments2 =  enrollmentQueryService.getEnrollmentInfoList(lectureId, null, getAccept, "date");
+        EnrollmentListResponse enrollments3 =  enrollmentQueryService.getEnrollmentInfoList(lectureId, null, getReject, "date");
 
         // then
         // 총 등록요청 개수 4개
-//        assertThat(enrollments.getEnrollments().size()).isEqualTo(4);
-//        // 총 Accept 개수 2개
-//        assertThat(enrollments2.getEnrollments().size()).isEqualTo(2);
-//        // 총 Reject 개수 1개
-//        assertThat(enrollments3.getEnrollments().size()).isEqualTo(1);
+        assertThat(enrollments.getEnrollments().size()).isEqualTo(4);
+        // 총 Accept 개수 2개
+        assertThat(enrollments2.getEnrollments().size()).isEqualTo(2);
+        // 총 Reject 개수 1개
+        assertThat(enrollments3.getEnrollments().size()).isEqualTo(1);
 
     }
 
@@ -144,17 +146,17 @@ public class EnrollmentServiceTest {
         EnrollmentQueryConditionRequest getAll = new EnrollmentQueryConditionRequest(1L, 10L, true, true, true, true);
         EnrollmentQueryConditionRequest getAccept = new EnrollmentQueryConditionRequest(1L, 10L, false, false, true, false);
         EnrollmentQueryConditionRequest getReject = new EnrollmentQueryConditionRequest(1L, 10L, false, false, false, true);
-//        EnrollmentListResponse enrollments =  enrollmentQueryService.getEnrollmentInfoList(null, studentId, getAll, "date");
-//        EnrollmentListResponse enrollments2 =  enrollmentQueryService.getEnrollmentInfoList(null, studentId, getAccept, "date");
-//        EnrollmentListResponse enrollments3 =  enrollmentQueryService.getEnrollmentInfoList(null, studentId, getReject, "date");
-//
-//        // then
-//        // 총 등록요청 개수 4개
-//        assertThat(enrollments.getEnrollments().size()).isEqualTo(4);
-//        // 총 Accept 개수 1개
-//        assertThat(enrollments2.getEnrollments().size()).isEqualTo(1);
-//        // 총 Reject 개수 2개
-//        assertThat(enrollments3.getEnrollments().size()).isEqualTo(2);
+        EnrollmentListResponse enrollments =  enrollmentQueryService.getEnrollmentInfoList(null, studentId, getAll, "date");
+        EnrollmentListResponse enrollments2 =  enrollmentQueryService.getEnrollmentInfoList(null, studentId, getAccept, "date");
+        EnrollmentListResponse enrollments3 =  enrollmentQueryService.getEnrollmentInfoList(null, studentId, getReject, "date");
+
+        // then
+        // 총 등록요청 개수 4개
+        assertThat(enrollments.getEnrollments().size()).isEqualTo(4);
+        // 총 Accept 개수 1개
+        assertThat(enrollments2.getEnrollments().size()).isEqualTo(1);
+        // 총 Reject 개수 2개
+        assertThat(enrollments3.getEnrollments().size()).isEqualTo(2);
 
     }
 
@@ -167,14 +169,14 @@ public class EnrollmentServiceTest {
         //when
         EnrollmentQueryConditionRequest request = new EnrollmentQueryConditionRequest(1L, 3L, true, true, true, true);
         EnrollmentQueryConditionRequest request2 = new EnrollmentQueryConditionRequest(2L, 3L, true, true, true, true);
-//        EnrollmentListResponse enrollments =  enrollmentQueryService.getEnrollmentInfoList(lectureId, null, request, "date");
-//        EnrollmentListResponse enrollments2 =  enrollmentQueryService.getEnrollmentInfoList(lectureId, null, request2, "date");
-//
-//        //then
-//        assertThat(enrollments.getEnrollments().size()).isEqualTo(3);
-//        assertThat(enrollments.getPageInfo().getHaveNext()).isEqualTo(true);
-//        assertThat(enrollments2.getEnrollments().size()).isEqualTo(1);
-//        assertThat(enrollments2.getPageInfo().getHaveNext()).isEqualTo(false);
+        EnrollmentListResponse enrollments =  enrollmentQueryService.getEnrollmentInfoList(lectureId, null, request, "date");
+        EnrollmentListResponse enrollments2 =  enrollmentQueryService.getEnrollmentInfoList(lectureId, null, request2, "date");
+
+        //then
+        assertThat(enrollments.getEnrollments().size()).isEqualTo(3);
+        assertThat(enrollments.getPageInfo().getHaveNext()).isEqualTo(true);
+        assertThat(enrollments2.getEnrollments().size()).isEqualTo(1);
+        assertThat(enrollments2.getPageInfo().getHaveNext()).isEqualTo(false);
 
     }
 
@@ -186,10 +188,10 @@ public class EnrollmentServiceTest {
 
         //when
         EnrollmentQueryConditionRequest request = new EnrollmentQueryConditionRequest(1L, 10L, false, false, true, true);
-//        EnrollmentListResponse enrollments =  enrollmentQueryService.getEnrollmentInfoList(lectureId, null, request, "date");
-//
-//        //then
-//        assertThat(enrollments.getEnrollments().size()).isEqualTo(3);
+        EnrollmentListResponse enrollments =  enrollmentQueryService.getEnrollmentInfoList(lectureId, null, request, "date");
+
+        //then
+        assertThat(enrollments.getEnrollments().size()).isEqualTo(3);
 
     }
 

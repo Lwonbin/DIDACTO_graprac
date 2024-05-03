@@ -45,10 +45,25 @@ class MemberServiceTest {
         given(memberRepository.findAll()).willReturn(list);
 
         // when
-//        List<MemberResponse> result = memberService.queryAll();
+        List<MemberResponse> result = memberService.queryAll();
 
         // then
-//        assertThat(result.size()).isEqualTo(2);
+        assertThat(result.size()).isEqualTo(2);
+    }
+
+    @Test
+    void query() {
+        // given
+        Long id = 5L;
+        Member member = createMember();
+
+        given(memberRepository.findById(id)).willReturn(Optional.of(member));
+
+        // when
+        MemberResponse result = memberService.query(id);
+
+        // then
+        assertThat(result.getName()).isEqualTo("홍길동");
     }
 
     @Test

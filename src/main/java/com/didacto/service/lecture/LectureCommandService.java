@@ -22,7 +22,7 @@ public class LectureCommandService {
 
     @Transactional
     public Lecture create(LectureCreationRequest request) {
-        Member member = memberQueryService.queryOne(request.getOwnerId());
+        Member member = memberQueryService.query(request.getOwnerId());
 
         Lecture lecture = Lecture.builder()
                 .title(request.getTitle())

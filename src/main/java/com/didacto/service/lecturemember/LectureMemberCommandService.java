@@ -69,7 +69,7 @@ public class LectureMemberCommandService {
             throw new ForbiddenException403(ErrorDefineCode.AUTHORIZATION_FAIL);
         }
 
-        lectureMember.delete(memberQueryService.queryOne(deletedBy));
+        lectureMember.delete(memberQueryService.query(deletedBy));
         return lectureMemberRepository.save(lectureMember);
     }
 }

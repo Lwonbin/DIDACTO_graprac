@@ -13,14 +13,14 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class LecturePageResponse extends PageResponse {
-    private List<LectureResponse> lectureMembers;
+    private List<LectureResponse> lectures;
 
     public LecturePageResponse(
             PageInfoResponse pageInfo,
             List<Lecture> lectures
     ){
         super(pageInfo);
-        this.lectureMembers = lectures.stream()
+        this.lectures = lectures.stream()
                 .map(LectureResponse::new)
                 .toList();
     }

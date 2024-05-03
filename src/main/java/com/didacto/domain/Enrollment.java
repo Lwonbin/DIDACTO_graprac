@@ -6,7 +6,12 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.UpdateTimestamp;
+import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
+import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 
 @EntityListeners(AuditingEntityListener.class)
 @Getter
@@ -25,7 +30,7 @@ public class Enrollment extends BaseEntity {
 
 
     /**
-     * 연관관계 매핑
+     * 연관관꼐 매핑
      */
 
     @ManyToOne(fetch = FetchType.LAZY)
