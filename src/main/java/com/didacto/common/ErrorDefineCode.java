@@ -10,6 +10,7 @@ public enum ErrorDefineCode {
 
     UNCAUGHT("ERR_00", "Uncaught Exception"),
     VALID_ERROR("ERR_01", "Field Validation fail"),
+
     EXAMPLE_OCCURE_ERROR("ERR_02", "예제 코드에서 그냥 발생시킨 오류랍니다"),
     DUPLICATE_EXAMPLE_NAME("ERR_03", "Example로 중복된 이름을 사용할 수 없습니다"),
     AUTH_NOT_FOUND_EMAIL("ERR_04", "해당 이메일을 찾을 수 없습니다."),
@@ -24,8 +25,11 @@ public enum ErrorDefineCode {
     USER_NOT_FOUND("ENROLL_1", "해당 사용자를 찾을 수 없습니다."),
     ALREADY_ENROLL_REQUEST("ENROLL_2", "이미 교수자에게 강의 등록 요청을 보냈습니다."),
     ALREADY_JOIN("ENROLL_3", "이미 강의에 등록된 상태입니다."),
-    ALREADY_ENROLL("ENROLL_4", "등록 요청에 대한 처리가 이미 완료되었습니다. 혹은 해당 등록 처리에 대한 사용자의 권한이 없습니다."),
-    NOT_FOUND_ENROLL("ENROLL_5", "해당 초대 정보를 찾을 수 없습니다."),
+
+    ENROLLMENT_NOT_FOUND("ENROLL_01", "해당 초대 정보를 찾을 수 없습니다."),
+    ENROLLMENT_ALREADY_EXISTENCE("ENROLL_02", "등록 요청에 대한 처리가 이미 완료되었습니다. 혹은 해당 등록 처리에 대한 사용자의 권한이 없습니다."),
+    ENROLLMENT_NO_PERMISSION("ENR_03", "등록 요청을 수정할 권한이 없습니다."),
+
     LECTURE_MEMBER_NOT_FOUND("LMB_01", "강의 참여자를 찾을 수 없습니다."),
     LECTURE_MEMBER_ALREADY_EXISTENCE("LMB_02", "이미 강의에 등록된 사용자입니다."),
     ;
