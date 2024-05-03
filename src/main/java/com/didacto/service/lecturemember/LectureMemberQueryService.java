@@ -30,10 +30,6 @@ public class LectureMemberQueryService {
                 .orElseThrow(() -> new NoSuchElementFoundException404(ErrorDefineCode.LECTURE_NOT_FOUND));
     }
 
-    public List<LectureMember> query(LectureMemberQueryFilter filter){
-        return lectureMemberRepository.findLectureMembers(filter);
-    }
-
     public LectureMemberPageResponse queryPage(Pageable pageable, LectureMemberQueryFilter request) {
         long page = pageable.getOffset();
         long size = pageable.getPageSize();

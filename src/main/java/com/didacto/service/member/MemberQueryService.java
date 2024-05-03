@@ -25,10 +25,6 @@ public class MemberQueryService {
                 .orElseThrow(() -> new NoSuchElementFoundException404(ErrorDefineCode.MEMBER_NOT_FOUND));
     }
 
-    public List<Member> query(MemberQueryFilter request){
-        return memberRepository.findMembers(request);
-    }
-
     public MemberPageResponse queryPage(Pageable pageable, MemberQueryFilter request) {
         long page = pageable.getOffset();
         long size = pageable.getPageSize();

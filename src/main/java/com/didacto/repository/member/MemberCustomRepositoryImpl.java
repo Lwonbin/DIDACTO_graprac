@@ -22,12 +22,6 @@ public class MemberCustomRepositoryImpl implements MemberCustomRepository {
     private final JPAQueryFactory queryFactory;
 
     @Override
-    public List<Member> findMembers(MemberQueryFilter request) {
-        JPAQuery<Member> query = queryWithFilter(request);
-        return query.fetch();
-    }
-
-    @Override
     public List<Member> findMemberPage(Pageable pageable, MemberQueryFilter request) {
         JPAQuery<Member> query = queryWithFilter(request);
 

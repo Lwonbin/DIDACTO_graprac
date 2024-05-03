@@ -24,12 +24,6 @@ public class LectureCustomRepositoryImpl implements LectureCustomRepository {
     private final JPAQueryFactory queryFactory;
 
     @Override
-    public List<Lecture> findLectures(LectureQueryFilter request) {
-        JPAQuery<Lecture> query = queryWithFilter(request);
-        return query.fetch();
-    }
-
-    @Override
     public List<Lecture> findLecturePage(Pageable pageable, LectureQueryFilter request) {
         JPAQuery<Lecture> query = queryWithFilter(request);
 
