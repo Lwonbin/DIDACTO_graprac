@@ -2,18 +2,21 @@ package com.didacto.controller.v1.lecture;
 
 import com.didacto.common.response.CommonResponse;
 import com.didacto.domain.Lecture;
-import com.didacto.dto.lecture.*;
+import com.didacto.dto.PageQueryRequest;
+import com.didacto.dto.lecture.LecturePageResponse;
+import com.didacto.dto.lecture.LectureQueryFilter;
+import com.didacto.dto.lecture.LectureQueryRequest;
+import com.didacto.dto.lecture.LectureResponse;
 import com.didacto.service.lecture.LectureQueryService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springdoc.core.annotations.ParameterObject;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
-import org.springframework.data.web.PageableDefault;
-import org.springframework.data.web.SortDefault;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 @RequiredArgsConstructor
 @RestController
@@ -35,15 +38,16 @@ public class LectureQueryController {
         );
     }
 
-    @GetMapping("page")
-    @Operation(summary = "LECTURE_MEMBER_QUERY_02 : 강의 목록 조회")
+    @GetMapping("list")
+    @Operation(summary = "LECTURE_QUERY_02 : 강의 목록 조회")
     public CommonResponse<LecturePageResponse> queryPage(
-            @PageableDefault(size = 100)
-            @SortDefault(sort = "id", direction = Sort.Direction.DESC)
-            Pageable pageable,
-            @ParameterObject LectureQueryFilter request
+            @ParameterObject LectureQueryRequest request
     ){
-        LecturePageResponse lecturePageResponse = lectureQueryService.queryPage(pageable, request);
+        LectureQueryFilter filter = LectureQueryFilter.builder()
+                .titleKeyword(request.getTitleKeyword())
+                .deleted(request.getDeleted())
+                .build();
+        LecturePageResponse lecturePageResponse = lectureQueryService.queryPage(request.getPageable(), filter);
 
         return new CommonResponse(
                 true,

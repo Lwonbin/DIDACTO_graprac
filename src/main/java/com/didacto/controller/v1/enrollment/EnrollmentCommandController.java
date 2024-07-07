@@ -1,14 +1,18 @@
 package com.didacto.controller.v1.enrollment;
 
+import com.didacto.common.ErrorDefineCode;
 import com.didacto.common.response.CommonResponse;
+import com.didacto.config.exception.custom.exception.NoSuchElementFoundException404;
 import com.didacto.config.security.AuthConstant;
 import com.didacto.config.security.SecurityUtil;
+import com.didacto.domain.Enrollment;
 import com.didacto.domain.EnrollmentStatus;
 import com.didacto.dto.enrollment.EnrollmentCancelRequest;
 import com.didacto.dto.enrollment.EnrollmentConfirmRequest;
 import com.didacto.dto.enrollment.EnrollmentRequest;
 import com.didacto.service.enrollment.EnrollmentCommandService;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -43,11 +47,11 @@ public class EnrollmentCommandController {
     @PreAuthorize(AuthConstant.AUTH_USER)
     @Operation(summary = "ENROLL_COMMAND_02 : 강의 등록 요청 취소 (학생)", description = "요청한 등록을 취소합니다.")
     public CommonResponse<Long> cancelRequest(
-            @Valid @RequestBody EnrollmentCancelRequest request
+            @Parameter(example = "1") @RequestParam("enrollmentId") Long enrollmentId
     ){
         Long studentId = SecurityUtil.getCurrentMemberId();
 
-        Long enroll = enrollmentService.cancelEnrollment(request.getEnrollmentId(), studentId).getId();
+        Long enroll = enrollmentService.cancelEnrollment(enrollmentId, studentId).getId();
         return new CommonResponse(
                 true, HttpStatus.OK, "등록 요청이 취소되었습니다.", enroll
         );
@@ -61,12 +65,22 @@ public class EnrollmentCommandController {
     ){
         Long tutorId = SecurityUtil.getCurrentMemberId();
 
-        Long enroll = enrollmentService.confirmEnrollment(
-                request.getEnrollmentId(), tutorId, EnrollmentStatus.valueOf(request.getAction())).getId();
+        Enrollment enroll = enrollmentService.confirmEnrollment(
+                request.getEnrollmentId(), tutorId, EnrollmentStatus.valueOf(request.getAction()));
 
-        return new CommonResponse(
-                true, HttpStatus.OK, "등록 요청 처리가 완료되었습니다.", enroll
-        );
+        Long result = enroll.getId();
+
+        //탈퇴된 User의 요청일 시 CANCEL로 상태 변경 및 예외 반환
+        if(enroll.getStatus().equals(EnrollmentStatus.CANCELLED)){
+            throw new NoSuchElementFoundException404(ErrorDefineCode.CONFIRM_FAIL_USER_DELETED);
+        }
+
+        else{
+            return new CommonResponse(
+                    true, HttpStatus.OK, "등록 요청 처리가 완료되었습니다.", result
+            );
+        }
+
     }
 
 
