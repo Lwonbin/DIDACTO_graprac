@@ -52,7 +52,6 @@ DIDACTO는 배우다 라는 의미를 가진 라틴어로 졸업프로젝트의 
 
 
 ## 결제 시스템 설명
-![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/739e4001-c3ec-42b1-bb21-9e84768b738e/a5a25f19-2292-4453-99b1-28cb323ee377/Untitled.png)
 
 1. 결제시작
 
@@ -139,7 +138,7 @@ DIDACTO는 배우다 라는 의미를 가진 라틴어로 졸업프로젝트의 
 
 ```
 
-결제가 완료되었다면 callback 으로 서버쪽에 payment_uid와 order_uid를 보냄
+결제가 완료되었다면 callback 으로 서버쪽에 payment_uid와 order_uid를 보내게 된다.
 
 1. PaymentController       api/v1/payment
 
@@ -156,8 +155,8 @@ DIDACTO는 배우다 라는 의미를 가진 라틴어로 졸업프로젝트의 
 
 RequestBody로 넘어온 imp_uid와 order_uid를 service단으로 넘겨줌
 
-1. PaymentService
-    1. paymentByCallback 함수
+2.  PaymentService
+    paymentByCallback 함수
         
         ```java
             @Transactional
@@ -187,11 +186,11 @@ RequestBody로 넘어온 imp_uid와 order_uid를 service단으로 넘겨줌
             }
         ```
         
-        결제 단건 조회를 통해서 결제가 있는지 확인 후 받아오기
+        - 결제 단건 조회를 통해서 결제가 있는지 확인 후 받아오기
         
-        주문내역 조회를 통해서 주문 이있는지 확인 후 받아오기
+        - 주문내역 조회를 통해서 주문 이있는지 확인 후 받아오기
         
-        두개를 활용해 검증 과정 시작
+        - 두개를 활용해 검증 과정 시작
         
     2. validateAndProcessPayment
         
