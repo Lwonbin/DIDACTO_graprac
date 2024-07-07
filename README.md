@@ -51,9 +51,9 @@ DIDACTO는 배우다 라는 의미를 가진 라틴어로 졸업프로젝트의 
 1차 개발범위에 해당하는 내용입니다.
 
 1. MEMBER(회원)
-  1. 회원 가입, 수정, 탈퇴
-  2. 인증(Authentication)
-  3. 인가(Authorization)
+  2. 회원 가입, 수정, 탈퇴
+  3. 인증(Authentication)
+  4. 인가(Authorization)
 2. LECTURE(강의)
    1. 강의 생성, 수정, 삭제
    2. 강의 검색 (키워드 검색)
