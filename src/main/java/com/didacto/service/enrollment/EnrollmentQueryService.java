@@ -38,7 +38,7 @@ public class EnrollmentQueryService {
         // Query
         Enrollment enrollment = enrollmentRepository.findById(enrollmentId).orElseThrow(() -> {
             throw new NoSuchElementFoundException404(ErrorDefineCode.NOT_FOUND_ENROLL);
-        });
+
 
         return new EnrollmentResponse(enrollment);
     }

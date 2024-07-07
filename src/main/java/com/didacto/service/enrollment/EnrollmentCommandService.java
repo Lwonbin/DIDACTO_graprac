@@ -82,8 +82,10 @@ public class EnrollmentCommandService {
         Member member = memberQueryService.query(memberId);
 
         // Validate & Find : 멤버와 일치, WAITING 상태, enrollId에 해당하는 레코드 조회
+
         Enrollment enrollment = enrollmentQueryService.findWaitingEnrollment(enrollId, memberId)
                 .orElseThrow(() -> new NoSuchElementFoundException404(ErrorDefineCode.ALREADY_ENROLL));
+
 
         // Update : Status 변경, 수정자 변경
         enrollment.updateStatus(EnrollmentStatus.CANCELLED);
@@ -109,6 +111,7 @@ public class EnrollmentCommandService {
         Member tutor = memberQueryService.query(tutorId);
 
         // Validate & Find : 강의 소유자와 일치, WAITING 상태, enrollId에 해당하는 레코드 조회
+
         Enrollment enrollment = enrollmentQueryService.findWaitingEnrollmentByTutorId(enrollId, tutorId)
                 .orElseThrow(() -> new NoSuchElementFoundException404(ErrorDefineCode.ALREADY_ENROLL));
 
@@ -119,7 +122,8 @@ public class EnrollmentCommandService {
             enrollment.updateModifiedMember(tutor);
             enrollmentRepository.save(enrollment);
             return enrollment;
-        }
+
+
 
         // Update : Status 변경, 수정자 변경
         enrollment.updateStatus(action);
